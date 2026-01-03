@@ -226,6 +226,7 @@ const InputGame = ({ isHidden, isReverse = false }: InputGameProps) => {
 
   const handleWrongAnswer = (wrongInput: string) => {
     setLastWrongInput(wrongInput);
+    setInputValue('');
     playErrorTwice();
 
     incrementCharacterScore(correctChar, 'wrong');
@@ -272,9 +273,10 @@ const InputGame = ({ isHidden, isReverse = false }: InputGameProps) => {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{
             type: 'spring',
-            stiffness: 80,
+            stiffness: 150,
             damping: 20,
-            mass: 1
+            mass: 1,
+            duration: 0.5
           }}
           key={correctChar}
         >
@@ -290,8 +292,8 @@ const InputGame = ({ isHidden, isReverse = false }: InputGameProps) => {
         className={clsx(
           'w-full max-w-xs sm:max-w-sm md:max-w-md',
           'rounded-2xl px-5 py-4',
-          'border-1 border-[var(--border-color)] bg-[var(--card-color)]',
-          'text-left text-lg font-medium lg:text-xl',
+          'rounded-2xl border-1 border-[var(--border-color)] bg-[var(--card-color)]',
+          'text-top text-left text-lg font-medium lg:text-xl',
           'text-[var(--secondary-color)] placeholder:text-base placeholder:font-normal placeholder:text-[var(--secondary-color)]/40',
           'resize-none focus:outline-none',
           'transition-colors duration-200 ease-out',

@@ -248,6 +248,12 @@ const baseThemeSets: BaseThemeGroup[] = [
     icon: Moon,
     themes: [
       {
+        id: 'yuyake',
+        backgroundColor: 'oklch(25.0% 0.058 340.0 / 1)',    // dusk mauve
+        mainColor: 'oklch(90.0% 0.225 55.0 / 1)',           // tangerine orange
+        secondaryColor: 'oklch(78.0% 0.130 250.0 / 1)',     // cerulean blue
+      },
+      {
         id: 'kumonasu',
         backgroundColor: 'oklch(19.0% 0.043 302.0 / 1)',
         mainColor: 'oklch(93.0% 0.165 265.0 / 1)',

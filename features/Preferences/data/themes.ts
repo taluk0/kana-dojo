@@ -242,6 +242,12 @@ const baseThemeSets: BaseThemeGroup[] = [
     icon: Moon,
     themes: [
       {
+        id: 'fuji-sunrise',
+        backgroundColor: 'oklch(23.0% 0.048 40.0 / 1)',
+        mainColor: 'oklch(85.0% 0.155 55.0 / 1)',
+        secondaryColor: 'oklch(72.0% 0.175 25.0 / 1)'
+      },
+      {
         id: 'taiko-thunder',
         backgroundColor: 'oklch(17.0% 0.035 280.0 / 1)',
         mainColor: 'oklch(68.0% 0.175 30.0 / 1)',

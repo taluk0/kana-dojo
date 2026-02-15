@@ -3,31 +3,44 @@
 import { motion } from 'framer-motion';
 import clsx from 'clsx';
 import { Trophy } from 'lucide-react';
-import { cardBorderStyles } from '@/shared/lib/styles';
+import type { CSSProperties } from 'react';
 
 interface StatCardProps {
   value: number;
   label: string;
   index: number;
+  haloGap: number;
 }
 
 /**
  * Individual stat card displayed in the hero section
  */
-const StatCard = ({ value, label, index }: StatCardProps) => (
+const StatCard = ({ value, label, index, haloGap }: StatCardProps) => (
   <motion.div
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ delay: 0.1 * (index + 1) }}
     className={clsx(
-      'border border-(--border-color) p-6 text-center',
-      cardBorderStyles,
+      'rounded-(--stat-card-outer-radius) border-4 border-(--border-color) p-(--stat-card-halo-gap)',
     )}
+    style={
+      {
+        '--stat-card-halo-gap': `${haloGap}px`,
+        '--stat-card-outer-radius':
+          'calc(var(--radius-xl) + var(--stat-card-halo-gap))',
+        '--stat-card-inner-radius':
+          'calc(var(--stat-card-outer-radius) - var(--stat-card-halo-gap))',
+      } as CSSProperties
+    }
   >
-    <div className='mb-1 text-3xl font-bold text-(--main-color)'>
-      {value}
+    <div
+      className={clsx(
+        'rounded-(--stat-card-inner-radius) bg-(--card-color) p-6 text-center',
+      )}
+    >
+      <div className='mb-1 text-3xl font-bold text-(--main-color)'>{value}</div>
+      <div className='text-sm text-(--secondary-color)'>{label}</div>
     </div>
-    <div className='text-sm text-(--secondary-color)'>{label}</div>
   </motion.div>
 );
 
@@ -74,6 +87,7 @@ export interface HeroSectionProps {
   totalPoints: number;
   level: number;
   completionPercentage: number;
+  statCardHaloGap?: number;
 }
 
 /**
@@ -86,6 +100,7 @@ export const HeroSection = ({
   totalPoints,
   level,
   completionPercentage,
+  statCardHaloGap = 10,
 }: HeroSectionProps) => {
   const stats = [
     { value: unlockedCount, label: 'Unlocked' },
@@ -120,6 +135,7 @@ export const HeroSection = ({
                 value={stat.value}
                 label={stat.label}
                 index={index}
+                haloGap={statCardHaloGap}
               />
             ))}
           </div>

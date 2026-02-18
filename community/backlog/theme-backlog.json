@@ -937,7 +937,9 @@
     "mainColor": "oklch(85.0% 0.135 55.0 / 1)",
     "secondaryColor": "oklch(68.0% 0.165 30.0 / 1)",
     "issued": true,
-    "completed": false
+    "completed": true,
+    "completedBy": "Zeroscapez",
+    "completedPR": 5297
   },
   {
     "id": "garden-bridge",

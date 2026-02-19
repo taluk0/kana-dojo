@@ -128,17 +128,17 @@ export default async function ConjugatePage({
           </Suspense>
 
           {/* SEO Content Section - Educational content for search engines */}
-          <section className='mx-auto mt-12 max-w-4xl px-4'>
+          <section className='mt-40'>
             <SEOContent />
           </section>
 
           {/* FAQ Section */}
-          <section className='mx-auto mt-12 max-w-4xl px-4'>
+          <section className='mt-40'>
             <FAQ />
           </section>
 
           {/* Related Features - Internal Links */}
-          <section className='mx-auto mt-12 max-w-4xl px-4 pb-12'>
+          <section className='mt-40 pb-40'>
             <RelatedFeatures />
           </section>
         </article>

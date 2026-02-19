@@ -109,7 +109,7 @@ export default function ConjugationResults({
         </section>
       </div>
 
-      <div className='flex flex-col gap-0' role='list'>
+      <div className='flex flex-col gap-24' role='list'>
         {ALL_CONJUGATION_CATEGORIES.map(category => (
           <ConjugationCategory
             key={category}

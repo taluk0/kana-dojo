@@ -161,7 +161,7 @@ const Effects = () => {
         defaultOpen={true}
         storageKey='prefs-effects-cursor'
       >
-        <fieldset className='grid grid-cols-3 gap-2 p-1 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6'>
+        <fieldset className='grid grid-cols-4 gap-3 p-1 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-7'>
           {CURSOR_TRAIL_EFFECTS.map(effect => (
             <EffectCard
               key={effect.id}
@@ -184,7 +184,7 @@ const Effects = () => {
         defaultOpen={true}
         storageKey='prefs-effects-click'
       >
-        <fieldset className='grid grid-cols-3 gap-2 p-1 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6'>
+        <fieldset className='grid grid-cols-4 gap-3 p-1 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-7'>
           {ORDERED_CLICK_EFFECTS.map(effect => (
             <EffectCard
               key={effect.id}

@@ -259,18 +259,18 @@
     "character": "DIO"
   },
   {
-  "japanese": "ã‚„ã‚Œã‚„ã‚Œã� ã�œ",
-  "romaji": "Yare yare da ze",
-  "english": "Good grief. (alt wording 6)",
-  "anime": "JoJo's Bizarre Adventure: Stardust Crusaders",
-  "character": "Jotaro Kujo"
+    "japanese": "ã‚„ã‚Œã‚„ã‚Œã� ã�œ",
+    "romaji": "Yare yare da ze",
+    "english": "Good grief. (alt wording 6)",
+    "anime": "JoJo's Bizarre Adventure: Stardust Crusaders",
+    "character": "Jotaro Kujo"
   },
   {
-  "japanese": "ã‚ªãƒ©ã‚ªãƒ©ã‚ªãƒ©ã‚ªãƒ©ã‚ªãƒ©ï¼�",
-  "romaji": "Ora ora ora ora ora!",
-  "english": "Ora ora ora ora ora! (alt wording 8)",
-  "anime": "JoJo's Bizarre Adventure: Stardust Crusaders",
-  "character": "Jotaro Kujo"
+    "japanese": "ã‚ªãƒ©ã‚ªãƒ©ã‚ªãƒ©ã‚ªãƒ©ã‚ªãƒ©ï¼�",
+    "romaji": "Ora ora ora ora ora!",
+    "english": "Ora ora ora ora ora! (alt wording 8)",
+    "anime": "JoJo's Bizarre Adventure: Stardust Crusaders",
+    "character": "Jotaro Kujo"
   },
   {
     "japanese": "貴様ッ！見ているなッ！！",
@@ -278,5 +278,12 @@
     "english": "You! You're watching me! (alt wording 11)",
     "anime": "JoJo's Bizarre Adventure: Stone Ocean",
     "character": "Jolyne Cujoh"
+  },
+  {
+    "japanese": "ブチャラティ、来た！",
+    "romaji": "Bucharati, kita!",
+    "english": "Bucciarati is here! (alt wording 17)",
+    "anime": "JoJo's Bizarre Adventure: Golden Wind",
+    "character": "Narancia Ghirga"
   }
 ]

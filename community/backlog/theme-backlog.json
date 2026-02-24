@@ -1827,7 +1827,9 @@
     "mainColor": "oklch(82.0% 0.160 55.0 / 1)",
     "secondaryColor": "oklch(70.0% 0.120 15.0 / 1)",
     "issued": true,
-    "completed": false
+    "completed": true,
+    "completedBy": "andref218",
+    "completedPR": 5873
   },
   {
     "id": "citrus-shrine",

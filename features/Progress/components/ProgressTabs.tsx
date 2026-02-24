@@ -42,7 +42,7 @@ const ProgressTabs = () => {
       <div className='flex justify-center px-2'>
         <div
           className={cn(
-            'rounded-(--progress-tabs-outer-radius) border-4 border-(--border-color)',
+            'rounded-(--progress-tabs-outer-radius)',
           )}
           style={
             {

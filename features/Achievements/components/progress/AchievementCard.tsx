@@ -3,11 +3,8 @@
 import { motion } from 'framer-motion';
 import clsx from 'clsx';
 import { Trophy, Lock } from 'lucide-react';
-import type { CSSProperties } from 'react';
 import { type Achievement } from '@/features/Achievements/store/useAchievementStore';
 import { rarityConfig } from './constants';
-
-const ACHIEVEMENT_CARD_HALO_GAP = 8;
 
 export interface AchievementCardProps {
   achievement: Achievement;
@@ -33,26 +30,12 @@ export const AchievementCard = ({
   return (
     <div
       className={clsx(
-        'rounded-(--achievement-card-outer-radius) border-4 border-(--border-color) p-(--achievement-card-halo-gap)',
+        'relative overflow-hidden rounded-2xl p-6',
+        isUnlocked
+          ? 'bg-(--card-color)'
+          : 'bg-(--background-color) opacity-80',
       )}
-      style={
-        {
-          '--achievement-card-halo-gap': `${ACHIEVEMENT_CARD_HALO_GAP}px`,
-          '--achievement-card-outer-radius':
-            'calc(var(--radius-2xl) + var(--achievement-card-halo-gap))',
-          '--achievement-card-inner-radius':
-            'calc(var(--achievement-card-outer-radius) - var(--achievement-card-halo-gap))',
-        } as CSSProperties
-      }
     >
-      <div
-        className={clsx(
-          'relative overflow-hidden rounded-(--achievement-card-inner-radius) p-6',
-          isUnlocked
-            ? 'bg-(--card-color)'
-            : 'bg-(--background-color) opacity-80',
-        )}
-      >
         {/* Gradient overlay for unlocked achievements */}
         {isUnlocked && (
           <div
@@ -68,7 +51,7 @@ export const AchievementCard = ({
           <div
             className={clsx(
               'flex items-center gap-1 rounded-full px-2 py-1 text-xs font-medium',
-              'border backdrop-blur-sm',
+              'backdrop-blur-sm',
             )}
             style={
               isUnlocked
@@ -193,7 +176,6 @@ export const AchievementCard = ({
             )}
           </div>
         </div>
-      </div>
     </div>
   );
 };

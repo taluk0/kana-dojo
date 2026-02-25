@@ -17,8 +17,10 @@ Backlog updates are committed via auto-created PRs that your account creates and
 Check if `AUTOMATION_PR_TOKEN` already exists at:  
 **https://github.com/lingdojo/kana-dojo/settings/secrets/actions**
 
-- **If it's there** → you're done! No action needed.
+- **If it's there** → check that it was created with **Issues: Read and write** permission (see table in Step 1). If it was originally set up only for PR merging, it may be missing this permission. If so, regenerate the token with the full permission set below and update the secret.
 - **If it's not there** → follow Step 1 and Step 2 below.
+
+> **Note:** Reactions, labels, and welcome comments require `Issues: Read and write`. Without this, those operations will silently fail. The workflow now uses `GITHUB_TOKEN` as a fallback for labels/reactions/comments, so issues will still be labeled correctly — but verifying the PAT has full permissions ensures the issue author also appears as your personal account on all activity.
 
 ---
 

@@ -399,7 +399,6 @@ jobs:
               issueTitle = tmpl.title
                 .replace('{emoji}', pickEmoji())
                 .replace('{name}', item.name);
-              issueTitle = addTitleAdjectives(issueTitle, tmpl.adjectives);
               
               const instructions = t.buildInstructions(tmpl.file, tmpl.itemType, tmpl.prTitle, { step2: tmpl.step2, step3: tmpl.step3 }).map((instr, i) => `${i + 1}. ${instr.replace(/{name}/g, item.name)}`);
               
@@ -455,7 +454,6 @@ jobs:
               issueTitle = tmpl.title
                 .replace('{emoji}', pickEmoji())
                 .replace('{id}', item.id);
-              issueTitle = addTitleAdjectives(issueTitle, tmpl.adjectives);
               
               const instructions = t.buildInstructions(tmpl.file, tmpl.itemType, tmpl.prTitle).map((instr, i) => `${i + 1}. ${instr.replace(/{id}/g, item.id)}`);
               const codeBlock = `\`\`\`json\n"${item.fact}"\n\`\`\``;
@@ -516,7 +514,6 @@ jobs:
               issueTitle = tmpl.title
                 .replace('{emoji}', pickEmoji())
                 .replace('{id}', item.id);
-              issueTitle = addTitleAdjectives(issueTitle, tmpl.adjectives);
               
               const instructions = t.buildInstructions(tmpl.file, tmpl.itemType, tmpl.prTitle).map((instr, i) => `${i + 1}. ${instr.replace(/{id}/g, item.id)}`);
               
@@ -573,7 +570,6 @@ jobs:
               issueTitle = tmpl.title
                 .replace('{emoji}', pickEmoji())
                 .replace('{id}', item.id);
-              issueTitle = addTitleAdjectives(issueTitle, tmpl.adjectives);
 
               const instructions = t.buildInstructions(tmpl.file, tmpl.itemType, tmpl.prTitle).map((instr, i) => `${i + 1}. ${instr.replace(/{id}/g, item.id)}`);
               const codeBlock = `\`\`\`json\n{\n  "japanese": "${item.japanese}",\n  "romaji": "${item.romaji}",\n  "english": "${item.english}",\n  "poet": "${item.poet}",\n  "season": "${item.season}",\n  "kigo": "${item.kigo}",\n  "notes": "${item.notes}"\n}\n\`\`\``;
@@ -641,7 +637,6 @@ jobs:
               issueTitle = tmpl.title
                 .replace('{emoji}', pickEmoji())
                 .replace('{id}', item.id);
-              issueTitle = addTitleAdjectives(issueTitle, tmpl.adjectives);
 
               const difficultyFile = triviaSourcePaths[item.difficulty] || triviaSourcePaths.easy;
               const instructions = t.buildInstructions(tmpl.file.replace('{difficultyFile}', difficultyFile), tmpl.itemType, tmpl.prTitle).map((instr, i) => `${i + 1}. ${instr.replace(/{id}/g, item.id)}`);
@@ -697,7 +692,6 @@ jobs:
               issueTitle = tmpl.title
                 .replace('{emoji}', pickEmoji())
                 .replace('{id}', item.id);
-              issueTitle = addTitleAdjectives(issueTitle, tmpl.adjectives);
 
               const instructions = t.buildInstructions(tmpl.file, tmpl.itemType, tmpl.prTitle).map((instr, i) => `${i + 1}. ${instr.replace(/{id}/g, item.id)}`);
               const codeBlock = `\`\`\`json\n"${item.text}"\n\`\`\``;
@@ -764,7 +758,6 @@ jobs:
               issueTitle = tmpl.title
                 .replace('{emoji}', pickEmoji())
                 .replace('{id}', item.id);
-              issueTitle = addTitleAdjectives(issueTitle, tmpl.adjectives);
 
               const instructions = t.buildInstructions(tmpl.file, tmpl.itemType, tmpl.prTitle).map((instr, i) => `${i + 1}. ${instr.replace(/{id}/g, item.id)}`);
               const codeBlock = `\`\`\`json\n{\n  \"japanese\": \"${item.japanese}\",\n  \"romaji\": \"${item.romaji}\",\n  \"english\": \"${item.english}\",\n  \"anime\": \"${item.anime}\",\n  \"character\": \"${item.character}\"\n}\n\`\`\``;
@@ -824,7 +817,6 @@ jobs:
               issueTitle = tmpl.title
                 .replace('{emoji}', pickEmoji())
                 .replace('{id}', item.id);
-              issueTitle = addTitleAdjectives(issueTitle, tmpl.adjectives);
 
               const instructions = t.buildInstructions(tmpl.file, tmpl.itemType, tmpl.prTitle).map((instr, i) => `${i + 1}. ${instr.replace(/{id}/g, item.id)}`);
               const codeBlock = `\`\`\`json\n{\n  "japanese": "${item.japanese}",\n  "romaji": "${item.romaji}",\n  "english": "${item.english}",\n  "game": "${item.game}",\n  "character": "${item.character}"\n}\n\`\`\``;
@@ -881,7 +873,6 @@ jobs:
               issueTitle = tmpl.title
                 .replace('{emoji}', pickEmoji())
                 .replace('{id}', item.id);
-              issueTitle = addTitleAdjectives(issueTitle, tmpl.adjectives);
 
               const instructions = t.buildInstructions(tmpl.file, tmpl.itemType, tmpl.prTitle).map((instr, i) => `${i + 1}. ${instr.replace(/{id}/g, item.id)}`);
               const codeBlock = `\`\`\`json\n{\n  "japanese": "${item.japanese}",\n  "romaji": "${item.romaji}",\n  "english": "${item.english}",\n  "meaning": "${item.meaning}"\n}\n\`\`\``;
@@ -938,7 +929,6 @@ jobs:
               issueTitle = tmpl.title
                 .replace('{emoji}', pickEmoji())
                 .replace('{id}', item.id);
-              issueTitle = addTitleAdjectives(issueTitle, tmpl.adjectives);
 
               const instructions = t.buildInstructions(tmpl.file, tmpl.itemType, tmpl.prTitle).map((instr, i) => `${i + 1}. ${instr.replace(/{id}/g, item.id)}`);
               const codeBlock = `\`\`\`json\n{\n  "dialect": "${item.dialect}",\n  "standardJapanese": "${item.standardJapanese}",\n  "english": "${item.english}",\n  "region": "${item.region}",\n  "note": "${item.note}"\n}\n\`\`\``;
@@ -993,7 +983,6 @@ jobs:
               issueTitle = tmpl.title
                 .replace('{emoji}', pickEmoji())
                 .replace('{id}', item.id);
-              issueTitle = addTitleAdjectives(issueTitle, tmpl.adjectives);
 
               const instructions = t.buildInstructions(tmpl.file, tmpl.itemType, tmpl.prTitle).map((instr, i) => `${i + 1}. ${instr.replace(/{id}/g, item.id)}`);
               const codeBlock = `\`\`\`json\n{\n  "termA": "${item.termA}",\n  "termB": "${item.termB}",\n  "explanation": "${item.explanation}",\n  "example": "${item.example}"\n}\n\`\`\``;
@@ -1048,7 +1037,6 @@ jobs:
               issueTitle = tmpl.title
                 .replace('{emoji}', pickEmoji())
                 .replace('{id}', item.id);
-              issueTitle = addTitleAdjectives(issueTitle, tmpl.adjectives);
 
               const instructions = t.buildInstructions(tmpl.file, tmpl.itemType, tmpl.prTitle).map((instr, i) => `${i + 1}. ${instr.replace(/{id}/g, item.id)}`);
               const codeBlock = `\`\`\`json\n{\n  "situation": "${item.situation}",\n  "do": "${item.do}",\n  "dont": "${item.dont}",\n  "note": "${item.note}"\n}\n\`\`\``;
@@ -1103,7 +1091,6 @@ jobs:
               issueTitle = tmpl.title
                 .replace('{emoji}', pickEmoji())
                 .replace('{id}', item.id);
-              issueTitle = addTitleAdjectives(issueTitle, tmpl.adjectives);
 
               const instructions = t.buildInstructions(tmpl.file, tmpl.itemType, tmpl.prTitle).map((instr, i) => `${i + 1}. ${instr.replace(/{id}/g, item.id)}`);
               const codeBlock = `\`\`\`json\n{\n  "japanese": "${item.japanese}",\n  "romaji": "${item.romaji}",\n  "english": "${item.english}",\n  "jlpt": "${item.jlpt}"\n}\n\`\`\``;
@@ -1158,7 +1145,6 @@ jobs:
               issueTitle = tmpl.title
                 .replace('{emoji}', pickEmoji())
                 .replace('{id}', item.id);
-              issueTitle = addTitleAdjectives(issueTitle, tmpl.adjectives);
 
               const instructions = t.buildInstructions(tmpl.file, tmpl.itemType, tmpl.prTitle).map((instr, i) => `${i + 1}. ${instr.replace(/{id}/g, item.id)}`);
               const codeBlock = `\`\`\`json\n{\n  "wrong": "${item.wrong}",\n  "correct": "${item.correct}",\n  "explanation": "${item.explanation}"\n}\n\`\`\``;
@@ -1243,7 +1229,6 @@ jobs:
               repo: context.repo.repo,
               title: issueTitle,
               body: issueBody,
-              labels: labels,
               type: 'Task'
             };
 
@@ -1255,39 +1240,8 @@ jobs:
 
             console.log(`Created issue #${response.data.number}: ${issueTitle}`);
 
-            // Add multiple reactions for engagement signal (boosts sort:reactions ranking)
-            const reactionTypes = ['+1', 'rocket', 'heart'];
-            for (const reactionContent of reactionTypes) {
-              try {
-                await github.rest.reactions.createForIssue({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  issue_number: response.data.number,
-                  content: reactionContent
-                });
-              } catch (e) {
-                console.log(`Could not add ${reactionContent} reaction: ${e.message}`);
-              }
-            }
-
-            // Add welcome comment for engagement signal (boosts sort:comments ranking)
-            try {
-              const welcomeComment = await github.rest.issues.createComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: response.data.number,
-                body: t.common.welcomeComment
-              });
-
-              await github.rest.reactions.createForIssueComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                comment_id: welcomeComment.data.id,
-                content: t.common.welcomeCommentReaction || 'heart'
-              });
-            } catch (e) {
-              console.log(`Could not add welcome comment: ${e.message}`);
-            }
+            // Pass labels to the next step via output (labels/reactions/comments use GITHUB_TOKEN)
+            core.setOutput('issue_labels', labels.join(','));
 
             state.lastType = selectedType;
             state.lastRun = new Date().toISOString();
@@ -1304,6 +1258,65 @@ jobs:
             core.setOutput('consecutive_no_issue_runs', String(state.consecutiveNoIssueRuns));
             core.setOutput('should_commit', 'true');
             core.setOutput('notify_discord', 'false');
+
+      - name: Apply labels, reactions, and welcome comment
+        if: steps.create-issue.outputs.issue_created == 'true'
+        uses: actions/github-script@v7
+        env:
+          ISSUE_NUMBER: ${{ steps.create-issue.outputs.issue_number }}
+          ISSUE_LABELS: ${{ steps.create-issue.outputs.issue_labels }}
+        with:
+          # Uses default GITHUB_TOKEN (issues:write from permissions block) — guaranteed to work
+          script: |
+            const issueNumber = Number(process.env.ISSUE_NUMBER);
+            const labels = process.env.ISSUE_LABELS.split(',').filter(Boolean);
+            const templates = require('./.github/templates/messages.cjs');
+            const t = templates.issueCreation;
+
+            // Apply labels
+            try {
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issueNumber,
+                labels
+              });
+              console.log(`Applied labels: ${labels.join(', ')}`);
+            } catch (e) {
+              console.log(`Could not apply labels: ${e.message}`);
+            }
+
+            // Add reactions for engagement signal (boosts sort:reactions ranking)
+            for (const content of ['+1', 'rocket', 'heart']) {
+              try {
+                await github.rest.reactions.createForIssue({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issueNumber,
+                  content
+                });
+              } catch (e) {
+                console.log(`Reaction ${content} failed: ${e.message}`);
+              }
+            }
+
+            // Add welcome comment for engagement signal (boosts sort:comments ranking)
+            try {
+              const comment = await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issueNumber,
+                body: t.common.welcomeComment
+              });
+              await github.rest.reactions.createForIssueComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: comment.data.id,
+                content: t.common.welcomeCommentReaction || 'heart'
+              });
+            } catch (e) {
+              console.log(`Welcome comment failed: ${e.message}`);
+            }
 
       - name: Commit backlog updates
         id: commit-backlog

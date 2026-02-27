@@ -1341,7 +1341,7 @@
     ],
     "correctIndex": 2,
     "issued": false,
-    "completed": false
+    "completed": true
   },
   {
     "id": 97,
@@ -1354,7 +1354,7 @@
       "Kissa"
     ],
     "correctIndex": 1,
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {

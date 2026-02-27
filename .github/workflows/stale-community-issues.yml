@@ -96,6 +96,39 @@ jobs:
             let closedAssigned = 0;
             let warnedUnassigned = 0;
             let closedUnassigned = 0;
+            let apiFailures = 0;
+
+            function isTransientGithubError(error) {
+              const status = Number(error && error.status);
+              const message = String((error && error.message) || '').toLowerCase();
+              const responseData = String((((error || {}).response || {}).data) || '').toLowerCase();
+              return (
+                status >= 500 ||
+                message.includes('unicorn') ||
+                message.includes('<!doctype html>') ||
+                responseData.includes('unicorn') ||
+                responseData.includes('<!doctype html>')
+              );
+            }
+
+            async function runGithubApi(actionLabel, callback, retries = 3) {
+              let lastError;
+              for (let attempt = 1; attempt <= retries; attempt += 1) {
+                try {
+                  return await callback();
+                } catch (error) {
+                  lastError = error;
+                  const transient = isTransientGithubError(error);
+                  if (!transient || attempt === retries) {
+                    throw error;
+                  }
+                  const waitMs = attempt * 1000;
+                  console.log(`${actionLabel} failed on attempt ${attempt}/${retries}; retrying in ${waitMs}ms. Error: ${error.message}`);
+                  await new Promise(function(resolve) { setTimeout(resolve, waitMs); });
+                }
+              }
+              throw lastError;
+            }
 
             function reenableBacklogItem(title, sourceLabel) {
               const sourceTag = sourceLabel ? ` (${sourceLabel})` : '';
@@ -293,15 +326,21 @@ jobs:
               if (!issue.assignees || issue.assignees.length === 0) {
                 if (timeSinceActivity >= UNASSIGNED_CLOSE_THRESHOLD_MS) {
                   console.log(`Closing stale unassigned issue #${issue.number}: ${issue.title}`);
-                  closedUnassigned += 1;
-
-                  await github.rest.issues.update({
-                    owner: context.repo.owner,
-                    repo: context.repo.repo,
-                    issue_number: issue.number,
-                    state: 'closed',
-                    state_reason: 'not_planned'
-                  });
+                  try {
+                    await runGithubApi(`close-unassigned-issue-${issue.number}`, function() {
+                      return github.rest.issues.update({
+                        owner: context.repo.owner,
+                        repo: context.repo.repo,
+                        issue_number: issue.number,
+                        state: 'closed',
+                        state_reason: 'not_planned'
+                      });
+                    });
+                    closedUnassigned += 1;
+                  } catch (error) {
+                    apiFailures += 1;
+                    console.log(`Could not close unassigned issue #${issue.number}: ${error.message}`);
+                  }
                 } else {
                   // Leave unassigned issues quiet until auto-close to avoid noisy bot comments
                   skippedUnassigned += 1;
@@ -311,57 +350,74 @@ jobs:
 
               if (timeSinceActivity >= CLOSE_THRESHOLD_MS) {
                 console.log(`Closing stale issue #${issue.number}: ${issue.title}`);
-                closedAssigned += 1;
                 
                 // Unassign the user before closing
                 const assignees = issue.assignees.map(function(a) { return a.login; });
                 if (assignees.length > 0) {
                   try {
-                    await github.rest.issues.removeAssignees({
-                      owner: context.repo.owner,
-                      repo: context.repo.repo,
-                      issue_number: issue.number,
-                      assignees: assignees
+                    await runGithubApi(`unassign-issue-${issue.number}`, function() {
+                      return github.rest.issues.removeAssignees({
+                        owner: context.repo.owner,
+                        repo: context.repo.repo,
+                        issue_number: issue.number,
+                        assignees: assignees
+                      });
                     });
                     console.log(`Unassigned ${assignees.join(', ')} from issue #${issue.number}`);
                   } catch (error) {
                     // Continue stale cleanup even if assignee removal races or fails for one issue
+                    apiFailures += 1;
                     console.log(`Could not unassign issue #${issue.number}: ${error.message}`);
                   }
                 }
-                
-                await github.rest.issues.update({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  issue_number: issue.number,
-                  state: 'closed',
-                  state_reason: 'completed'
-                });
-
-                reenableBacklogItem(issue.title, 'assigned-stale-close');
+                try {
+                  await runGithubApi(`close-assigned-issue-${issue.number}`, function() {
+                    return github.rest.issues.update({
+                      owner: context.repo.owner,
+                      repo: context.repo.repo,
+                      issue_number: issue.number,
+                      state: 'closed',
+                      state_reason: 'completed'
+                    });
+                  });
+                  closedAssigned += 1;
+                  reenableBacklogItem(issue.title, 'assigned-stale-close');
+                } catch (error) {
+                  apiFailures += 1;
+                  console.log(`Could not close assigned issue #${issue.number}: ${error.message}`);
+                }
                 
               } else if (timeSinceActivity >= WARNING_THRESHOLD_MS && !hasWarning) {
                 console.log(`Adding warning to issue #${issue.number}`);
-                warnedAssigned += 1;
-                
+
                 const warningMsg = t.warning;
-                await github.rest.issues.createComment({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  issue_number: issue.number,
-                  body: `${warningMsg.greeting} ${warningMsg.body}\n\n${warningMsg.action}\n\n${warningMsg.consequence}\n\n${warningMsg.footer}`
-                });
-                
-                await github.rest.issues.addLabels({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  issue_number: issue.number,
-                  labels: [templates.labels.staleWarning]
-                });
+                try {
+                  await runGithubApi(`warn-comment-issue-${issue.number}`, function() {
+                    return github.rest.issues.createComment({
+                      owner: context.repo.owner,
+                      repo: context.repo.repo,
+                      issue_number: issue.number,
+                      body: `${warningMsg.greeting} ${warningMsg.body}\n\n${warningMsg.action}\n\n${warningMsg.consequence}\n\n${warningMsg.footer}`
+                    });
+                  });
+
+                  await runGithubApi(`warn-label-issue-${issue.number}`, function() {
+                    return github.rest.issues.addLabels({
+                      owner: context.repo.owner,
+                      repo: context.repo.repo,
+                      issue_number: issue.number,
+                      labels: [templates.labels.staleWarning]
+                    });
+                  });
+                  warnedAssigned += 1;
+                } catch (error) {
+                  apiFailures += 1;
+                  console.log(`Could not warn issue #${issue.number}: ${error.message}`);
+                }
               }
             }
 
-            console.log(`Stale issue summary: total=${issues.length}, skipped_unassigned=${skippedUnassigned}, warned_assigned=${warnedAssigned}, closed_assigned=${closedAssigned}, warned_unassigned=${warnedUnassigned}, closed_unassigned=${closedUnassigned}`);
+            console.log(`Stale issue summary: total=${issues.length}, skipped_unassigned=${skippedUnassigned}, warned_assigned=${warnedAssigned}, closed_assigned=${closedAssigned}, warned_unassigned=${warnedUnassigned}, closed_unassigned=${closedUnassigned}, api_failures=${apiFailures}`);
 
             if (needsCommit) {
               fs.writeFileSync(themeBacklogPath, JSON.stringify(themes, null, 2));

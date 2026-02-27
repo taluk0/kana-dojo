@@ -65,7 +65,10 @@ const Return = ({ isHidden, gameMode, onQuit }: ReturnProps) => {
   // Start stopwatch when component becomes visible
   useEffect(() => {
     if (!isHidden) totalTimeStopwatch.start();
-  }, [isHidden, totalTimeStopwatch]);
+    // `totalTimeStopwatch` object identity is not stable across renders.
+    // Including it in deps can cause a render -> start -> render loop.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isHidden]);
 
   // Keyboard shortcuts
   useEffect(() => {
